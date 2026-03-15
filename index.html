@@ -1,0 +1,538 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Ziad Bahgat — Marketing Strategist</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=Outfit:wght@300;400;500&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --bg:      #0C0C0C;
+      --white:   #F2F2F0;
+      --pop:     #C8FF00;          /* electric lime — the ONE color */
+      --grey:    #3A3A3A;
+      --muted:   #888884;
+      --line:    rgba(242,242,240,0.08);
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      background: var(--bg);
+      color: var(--white);
+      font-family: 'Outfit', sans-serif;
+      font-weight: 300;
+      min-height: 100vh;
+      overflow-x: hidden;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    /* ─── LAYOUT ─── */
+    .wrap {
+      max-width: 900px;
+      margin: 0 auto;
+      padding: 0 48px;
+    }
+
+    /* ─── ENTRANCE ─── */
+    .rise {
+      opacity: 0;
+      transform: translateY(22px);
+      animation: rise 0.75s cubic-bezier(0.16,1,0.3,1) forwards;
+    }
+    @keyframes rise { to { opacity:1; transform:translateY(0); } }
+    .d1{animation-delay:.06s} .d2{animation-delay:.16s} .d3{animation-delay:.26s}
+    .d4{animation-delay:.38s} .d5{animation-delay:.50s} .d6{animation-delay:.62s}
+    .d7{animation-delay:.74s} .d8{animation-delay:.86s}
+
+    /* ─── NAV ─── */
+    nav {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 36px 0 32px;
+      border-bottom: 1px solid var(--line);
+    }
+    .nav-logo {
+      font-family: 'Syne', sans-serif;
+      font-weight: 800;
+      font-size: 15px;
+      letter-spacing: 0.5px;
+      color: var(--white);
+      text-decoration: none;
+    }
+    .nav-logo span { color: var(--pop); }
+    .nav-badge {
+      display: flex;
+      align-items: center;
+      gap: 7px;
+      background: rgba(200,255,0,0.08);
+      border: 1px solid rgba(200,255,0,0.2);
+      padding: 6px 14px;
+      border-radius: 100px;
+      font-size: 11px;
+      letter-spacing: 1.5px;
+      text-transform: uppercase;
+      color: var(--pop);
+    }
+    .pulse {
+      width: 6px; height: 6px;
+      border-radius: 50%;
+      background: var(--pop);
+      animation: pulse 2.2s ease-in-out infinite;
+    }
+    @keyframes pulse {
+      0%,100% { opacity:1; transform:scale(1); box-shadow: 0 0 0 0 rgba(200,255,0,0.4); }
+      50%      { opacity:.7; transform:scale(0.85); box-shadow: 0 0 0 5px rgba(200,255,0,0); }
+    }
+
+    /* ─── HERO ─── */
+    .hero {
+      padding: 64px 0 60px;
+      display: grid;
+      grid-template-columns: 1fr 180px;
+      gap: 48px;
+      align-items: center;
+      border-bottom: 1px solid var(--line);
+    }
+    .hero-kicker {
+      font-size: 11px;
+      letter-spacing: 3px;
+      text-transform: uppercase;
+      color: var(--muted);
+      margin-bottom: 20px;
+    }
+    .hero-name {
+      font-family: 'Syne', sans-serif;
+      font-weight: 800;
+      font-size: clamp(46px, 7.5vw, 82px);
+      line-height: 0.95;
+      letter-spacing: -1.5px;
+      color: var(--white);
+      margin-bottom: 24px;
+    }
+    .hero-name .pop { color: var(--pop); }
+
+    .hero-tagline {
+      font-family: 'Outfit', sans-serif;
+      font-size: clamp(15px, 1.8vw, 17px);
+      font-weight: 300;
+      line-height: 1.7;
+      color: var(--muted);
+      max-width: 400px;
+      margin-bottom: 32px;
+    }
+    .hero-tagline strong {
+      color: var(--white);
+      font-weight: 400;
+    }
+
+    /* Tags */
+    .tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+    .tag {
+      font-size: 10px;
+      letter-spacing: 1.8px;
+      text-transform: uppercase;
+      color: var(--muted);
+      border: 1px solid var(--grey);
+      padding: 5px 13px;
+      border-radius: 100px;
+      transition: all 0.2s ease;
+      cursor: default;
+    }
+    .tag:hover, .tag.lit {
+      color: var(--pop);
+      border-color: rgba(200,255,0,0.35);
+      background: rgba(200,255,0,0.04);
+    }
+
+    /* Photo */
+    .photo-frame {
+      width: 180px;
+      height: 220px;
+      position: relative;
+    }
+    .photo-inner {
+      width: 100%;
+      height: 100%;
+      background: var(--grey);
+      border: 1px solid var(--line);
+      position: relative;
+      overflow: hidden;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .photo-inner img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      object-position: center top;
+      display: block;
+    }
+    .photo-inner::after {
+      content: 'YOUR\APHOTO';
+      white-space: pre;
+      text-align: center;
+      font-size: 10px;
+      letter-spacing: 3px;
+      text-transform: uppercase;
+      color: rgba(242,242,240,0.15);
+      line-height: 2;
+      position: absolute;
+    }
+    .photo-inner img ~ * { display: none; }
+    /* pop-color corner accent */
+    .photo-frame::before {
+      content: '';
+      position: absolute;
+      bottom: -8px; right: -8px;
+      width: 48px; height: 48px;
+      background: var(--pop);
+      z-index: 0;
+    }
+    .photo-inner { position: relative; z-index: 1; }
+
+    /* ─── CONTACT ─── */
+    .section-block {
+      padding: 52px 0;
+      border-bottom: 1px solid var(--line);
+    }
+    .section-label {
+      font-size: 10px;
+      letter-spacing: 3.5px;
+      text-transform: uppercase;
+      color: var(--muted);
+      margin-bottom: 32px;
+    }
+
+    .contact-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+      gap: 2px;
+    }
+    .c-card {
+      display: flex;
+      align-items: center;
+      gap: 18px;
+      padding: 22px 20px;
+      background: #161616;
+      text-decoration: none;
+      color: var(--white);
+      border: 1px solid transparent;
+      transition: background 0.2s, border-color 0.2s;
+      position: relative;
+      overflow: hidden;
+    }
+    .c-card:hover {
+      background: #1C1C1C;
+      border-color: rgba(200,255,0,0.18);
+    }
+    .c-card:hover .c-icon-wrap {
+      background: var(--pop);
+      color: var(--bg);
+    }
+    .c-card:hover .c-arrow { opacity: 1; transform: translate(0,0); }
+
+    .c-icon-wrap {
+      width: 40px; height: 40px;
+      border-radius: 10px;
+      background: var(--grey);
+      display: flex; align-items: center; justify-content: center;
+      flex-shrink: 0;
+      transition: background 0.2s, color 0.2s;
+      color: var(--muted);
+    }
+    .c-icon-wrap svg { width: 18px; height: 18px; }
+
+    .c-text { flex: 1; min-width: 0; }
+    .c-type {
+      font-size: 9px;
+      letter-spacing: 2.5px;
+      text-transform: uppercase;
+      color: var(--muted);
+      margin-bottom: 4px;
+    }
+    .c-value {
+      font-size: 13px;
+      font-weight: 400;
+      color: var(--white);
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+    .c-arrow {
+      font-size: 14px;
+      color: var(--pop);
+      opacity: 0;
+      transform: translate(-4px, 4px);
+      transition: all 0.22s ease;
+      flex-shrink: 0;
+    }
+
+    /* ─── CV SECTION ─── */
+    .cv-band {
+      padding: 48px 0 52px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 28px;
+      flex-wrap: wrap;
+      border-bottom: 1px solid var(--line);
+    }
+    .cv-copy h2 {
+      font-family: 'Syne', sans-serif;
+      font-weight: 700;
+      font-size: clamp(22px, 3vw, 32px);
+      letter-spacing: -0.5px;
+      color: var(--white);
+      margin-bottom: 6px;
+    }
+    .cv-copy p {
+      font-size: 13px;
+      color: var(--muted);
+    }
+
+    .btn-cv {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      background: var(--pop);
+      color: var(--bg);
+      font-family: 'Outfit', sans-serif;
+      font-weight: 500;
+      font-size: 12px;
+      letter-spacing: 1.5px;
+      text-transform: uppercase;
+      text-decoration: none;
+      padding: 14px 28px;
+      border-radius: 4px;
+      transition: opacity 0.2s, transform 0.2s;
+      white-space: nowrap;
+    }
+    .btn-cv:hover { opacity: 0.85; transform: translateY(-1px); }
+    .btn-cv svg { width: 15px; height: 15px; transition: transform 0.2s; }
+    .btn-cv:hover svg { transform: translateY(2px); }
+
+    /* ─── MARQUEE ─── */
+    .marquee-wrap {
+      overflow: hidden;
+      border-top: 1px solid var(--line);
+      border-bottom: 1px solid var(--line);
+      padding: 14px 0;
+      background: #111;
+    }
+    .marquee-track {
+      display: flex;
+      animation: marquee 20s linear infinite;
+      width: max-content;
+    }
+    .marquee-track:hover { animation-play-state: paused; }
+    .marquee-item {
+      font-family: 'Syne', sans-serif;
+      font-size: 11px;
+      font-weight: 600;
+      letter-spacing: 3px;
+      text-transform: uppercase;
+      color: var(--muted);
+      padding: 0 36px;
+      white-space: nowrap;
+    }
+    .marquee-item .dot { color: var(--pop); margin-left: 36px; }
+    @keyframes marquee {
+      from { transform: translateX(0); }
+      to   { transform: translateX(-50%); }
+    }
+
+    /* ─── FOOTER ─── */
+    footer {
+      padding: 26px 0 44px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 12px;
+    }
+    .foot-copy { font-size: 11px; color: rgba(242,242,240,0.2); letter-spacing: 0.5px; }
+    .foot-domain { font-size: 11px; color: rgba(242,242,240,0.2); letter-spacing: 0.5px; }
+
+    /* ─── RESPONSIVE ─── */
+    @media (max-width: 640px) {
+      .wrap { padding: 0 22px; }
+      .hero { grid-template-columns: 1fr; }
+      .photo-frame { width: 140px; height: 170px; order: -1; }
+      .cv-band { flex-direction: column; align-items: flex-start; }
+      .contact-grid { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+
+<div class="wrap">
+
+  <!-- Nav -->
+  <nav class="rise d1">
+    <a href="#" class="nav-logo">ZB<span>.</span></a>
+    <div class="nav-badge"><div class="pulse"></div> Open to Work</div>
+  </nav>
+
+  <!-- Hero -->
+  <section class="hero">
+    <div>
+      <p class="hero-kicker rise d2">Marketing · Strategy · Brand</p>
+      <h1 class="hero-name rise d3">
+        ZIAD<br>BAH<span class="pop">GAT</span>
+      </h1>
+      <p class="hero-tagline rise d4">
+        I build brands people <strong>remember</strong> and
+        strategies that <strong>actually work</strong> —
+        fuelled by ambition, creativity, and way too much tea.
+      </p>
+      <div class="tags rise d5">
+        <span class="tag lit">Marketing</span>
+        <span class="tag">Brand Strategy</span>
+        <span class="tag">Digital</span>
+        <span class="tag">Enactus</span>
+        <span class="tag">Content</span>
+        <span class="tag">Gen Z</span>
+      </div>
+    </div>
+    <div class="photo-frame rise d3">
+      <div class="photo-inner">
+        <img src="photo.jpg" alt="Ziad Bahgat" onerror="this.style.display='none'">
+      </div>
+    </div>
+  </section>
+
+</div>
+
+<!-- Marquee (full-width) -->
+<div class="marquee-wrap rise d5">
+  <div class="marquee-track">
+    <span class="marquee-item">Marketing Strategy<span class="dot">✦</span></span>
+    <span class="marquee-item">Brand Building<span class="dot">✦</span></span>
+    <span class="marquee-item">Enactus Damanhur<span class="dot">✦</span></span>
+    <span class="marquee-item">Digital Marketing<span class="dot">✦</span></span>
+    <span class="marquee-item">Content Creation<span class="dot">✦</span></span>
+    <span class="marquee-item">Customer Retention<span class="dot">✦</span></span>
+    <span class="marquee-item">Marketing Strategy<span class="dot">✦</span></span>
+    <span class="marquee-item">Brand Building<span class="dot">✦</span></span>
+    <span class="marquee-item">Enactus Damanhur<span class="dot">✦</span></span>
+    <span class="marquee-item">Digital Marketing<span class="dot">✦</span></span>
+    <span class="marquee-item">Content Creation<span class="dot">✦</span></span>
+    <span class="marquee-item">Customer Retention<span class="dot">✦</span></span>
+  </div>
+</div>
+
+<div class="wrap">
+
+  <!-- Contact -->
+  <section class="section-block rise d6">
+    <p class="section-label">Get in touch</p>
+    <div class="contact-grid">
+
+      <!-- Phone -->
+      <a href="tel:+201030534517" class="c-card">
+        <div class="c-icon-wrap">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07A19.5 19.5 0 013.07 9.81 19.79 19.79 0 01.22 1.2 2 2 0 012.22 0h3a2 2 0 012 1.72c.13.96.36 1.9.7 2.81a2 2 0 01-.45 2.11L6.09 7.91a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45c.91.34 1.85.57 2.81.7A2 2 0 0122 14.92z"/>
+          </svg>
+        </div>
+        <div class="c-text">
+          <div class="c-type">Phone</div>
+          <div class="c-value">+20 103 053 4517</div>
+        </div>
+        <span class="c-arrow">↗</span>
+      </a>
+
+      <!-- Email -->
+      <a href="mailto:info@ziadbahgat.me" class="c-card">
+        <div class="c-icon-wrap">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/>
+            <polyline points="22,6 12,13 2,6"/>
+          </svg>
+        </div>
+        <div class="c-text">
+          <div class="c-type">Email</div>
+          <div class="c-value">info@ziadbahgat.me</div>
+        </div>
+        <span class="c-arrow">↗</span>
+      </a>
+
+      <!-- LinkedIn -->
+      <a href="https://www.linkedin.com/in/ziad-bahgat/" target="_blank" rel="noopener" class="c-card">
+        <div class="c-icon-wrap">
+          <svg viewBox="0 0 24 24" fill="currentColor">
+            <path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 01-2.063-2.065 2.064 2.064 0 112.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/>
+          </svg>
+        </div>
+        <div class="c-text">
+          <div class="c-type">LinkedIn</div>
+          <div class="c-value">ziad-bahgat</div>
+        </div>
+        <span class="c-arrow">↗</span>
+      </a>
+
+      <!-- Instagram -->
+      <a href="https://www.instagram.com/ziadbahgatt" target="_blank" rel="noopener" class="c-card">
+        <div class="c-icon-wrap">
+          <svg viewBox="0 0 24 24" fill="currentColor">
+            <path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zM12 0C8.741 0 8.333.014 7.053.072 2.695.272.273 2.69.073 7.052.014 8.333 0 8.741 0 12c0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98C8.333 23.986 8.741 24 12 24c3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98C15.668.014 15.259 0 12 0zm0 5.838a6.162 6.162 0 100 12.324 6.162 6.162 0 000-12.324zM12 16a4 4 0 110-8 4 4 0 010 8zm6.406-11.845a1.44 1.44 0 100 2.881 1.44 1.44 0 000-2.881z"/>
+          </svg>
+        </div>
+        <div class="c-text">
+          <div class="c-type">Instagram</div>
+          <div class="c-value">@ziadbahgatt</div>
+        </div>
+        <span class="c-arrow">↗</span>
+      </a>
+
+      <!-- TikTok -->
+      <a href="https://www.tiktok.com/@ziadbahgatt" target="_blank" rel="noopener" class="c-card">
+        <div class="c-icon-wrap">
+          <svg viewBox="0 0 24 24" fill="currentColor">
+            <path d="M19.59 6.69a4.83 4.83 0 01-3.77-4.25V2h-3.45v13.67a2.89 2.89 0 01-2.88 2.5 2.89 2.89 0 01-2.89-2.89 2.89 2.89 0 012.89-2.89c.28 0 .54.04.79.1V9.01a6.32 6.32 0 00-.79-.05 6.34 6.34 0 00-6.34 6.34 6.34 6.34 0 006.34 6.34 6.34 6.34 0 006.33-6.34V8.69a8.18 8.18 0 004.78 1.52V6.75a4.85 4.85 0 01-1.01-.06z"/>
+          </svg>
+        </div>
+        <div class="c-text">
+          <div class="c-type">TikTok</div>
+          <div class="c-value">@ziadbahgatt</div>
+        </div>
+        <span class="c-arrow">↗</span>
+      </a>
+
+    </div>
+  </section>
+
+  <!-- CV Download -->
+  <div class="cv-band rise d7">
+    <div class="cv-copy">
+      <h2>Want the full picture?</h2>
+      <p>Download my CV — everything you need, one page.</p>
+    </div>
+    <a href="cv.pdf" download class="btn-cv">
+      Download CV
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4M7 10l5 5 5-5M12 15V3"/>
+      </svg>
+    </a>
+  </div>
+
+  <!-- Footer -->
+  <footer class="rise d8">
+    <span class="foot-copy">© 2025 Ziad Bahgat</span>
+    <span class="foot-domain">ziadbahgat.me</span>
+  </footer>
+
+</div>
+
+</body>
+</html>
