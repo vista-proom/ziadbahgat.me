@@ -3,9 +3,30 @@
 <head>
   <meta charset="UTF-8"/>
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Ziad Bahgat — Marketing Strategist</title>
+  <!-- SEO & PERFORMANCE -->
+  <title>Ziad Bahgat | Marketing Professional & Personal Brand Builder</title>
+  <meta name="description" content="Ziad Bahgat — Marketing specialist, Enactus Vice Head of Marketing, and founder of AXIS. Based in Damanhur, Egypt. Open to corporate opportunities.">
+  <meta name="theme-color" content="#0C0C0C">
+  <link rel="canonical" href="https://ziadbahgat.me">
+  
+  <!-- Open Graph -->
+  <meta property="og:title" content="Ziad Bahgat | Marketing Professional & Personal Brand Builder">
+  <meta property="og:description" content="Ziad Bahgat — Marketing specialist, Enactus Vice Head of Marketing, and founder of AXIS. Based in Damanhur, Egypt. Open to corporate opportunities.">
+  <meta property="og:image" content="/assets/photo.jpg">
+  <meta property="og:url" content="https://ziadbahgat.me">
+  <meta property="og:type" content="website">
+  
+  <!-- Twitter -->
+  <meta name="twitter:card" content="summary_large_image">
+  
+  <!-- Preconnects -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="preconnect" href="https://cdnjs.cloudflare.com">
+  
   <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=Outfit:wght@300;400;500&display=swap" rel="stylesheet">
+  <!-- NAV & FOOTER CLEANUP -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
   <style>
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
@@ -28,7 +49,10 @@
       min-height: 100vh;
       overflow-x: hidden;
       -webkit-font-smoothing: antialiased;
+      padding-top: 80px; /* NAV & FOOTER CLEANUP: offset for fixed nav */
     }
+
+    p { line-height: 1.7; /* MINIMALISM PASS: add 1.7 line-height to body text */ }
 
     /* ─── LAYOUT ─── */
     .wrap {
@@ -50,48 +74,39 @@
 
     /* ─── NAV ─── */
     nav {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      padding: 36px 0 32px;
-      border-bottom: 1px solid var(--line);
+      position: fixed; /* NAV & FOOTER CLEANUP */
+      top: 0; left: 0; width: 100%;
+      background: rgba(12, 12, 12, 0.92);
+      backdrop-filter: blur(8px); -webkit-backdrop-filter: blur(8px);
+      z-index: 1000; border-bottom: 1px solid var(--line);
     }
-    .nav-logo {
-      font-family: 'Syne', sans-serif;
-      font-weight: 800;
-      font-size: 15px;
-      letter-spacing: 0.5px;
+    .nav-container { /* MOBILE QA */
+      max-width: 900px; margin: 0 auto; width: 100%;
+      display: flex; align-items: center; justify-content: center;
+      padding: 24px 48px; position: relative;
+    }
+    .nav-toggle { /* MOBILE QA */
+      display: none; background: none; border: none; color: var(--white); cursor: pointer; padding: 4px;
+    }
+    .nav-links {
+      display: flex;
+      gap: 32px;
+    }
+    .nav-links a {
       color: var(--white);
       text-decoration: none;
+      font-size: 13px;
+      font-weight: 500;
+      opacity: 0.7;
+      transition: opacity 0.2s;
     }
-    .nav-logo span { color: var(--pop); }
-    .nav-badge {
-      display: flex;
-      align-items: center;
-      gap: 7px;
-      background: rgba(200,255,0,0.08);
-      border: 1px solid rgba(200,255,0,0.2);
-      padding: 6px 14px;
-      border-radius: 100px;
-      font-size: 11px;
-      letter-spacing: 1.5px;
-      text-transform: uppercase;
-      color: var(--pop);
-    }
-    .pulse {
-      width: 6px; height: 6px;
-      border-radius: 50%;
-      background: var(--pop);
-      animation: pulse 2.2s ease-in-out infinite;
-    }
-    @keyframes pulse {
-      0%,100% { opacity:1; transform:scale(1); box-shadow: 0 0 0 0 rgba(200,255,0,0.4); }
-      50%      { opacity:.7; transform:scale(0.85); box-shadow: 0 0 0 5px rgba(200,255,0,0); }
+    .nav-links a:hover {
+      opacity: 1;
     }
 
     /* ─── HERO ─── */
     .hero {
-      padding: 64px 0 60px;
+      padding: 80px 0; /* MINIMALISM PASS: 80px minimum on desktop */
       display: grid;
       grid-template-columns: 1fr 180px;
       gap: 48px;
@@ -108,7 +123,7 @@
     .hero-name {
       font-family: 'Syne', sans-serif;
       font-weight: 800;
-      font-size: clamp(46px, 7.5vw, 82px);
+      font-size: clamp(2.5rem, 8vw, 4.5rem); /* MOBILE QA */
       line-height: 0.95;
       letter-spacing: -1.5px;
       color: var(--white);
@@ -146,11 +161,12 @@
       border-radius: 100px;
       transition: all 0.2s ease;
       cursor: default;
+      white-space: nowrap; /* MOBILE QA */
     }
     .tag:hover, .tag.lit {
-      color: var(--pop);
-      border-color: rgba(200,255,0,0.35);
-      background: rgba(200,255,0,0.04);
+      color: var(--white); /* MINIMALISM PASS: remove lime */
+      border-color: rgba(242,242,240,0.35); /* MINIMALISM PASS: remove lime */
+      background: rgba(242,242,240,0.04); /* MINIMALISM PASS: remove lime */
     }
 
     /* Photo */
@@ -191,18 +207,13 @@
     .photo-inner img ~ * { display: none; }
     /* pop-color corner accent */
     .photo-frame::before {
-      content: '';
-      position: absolute;
-      bottom: -8px; right: -8px;
-      width: 48px; height: 48px;
-      background: var(--pop);
-      z-index: 0;
+      display: none; /* MINIMALISM PASS: remove lime accent */
     }
     .photo-inner { position: relative; z-index: 1; }
 
     /* ─── CONTACT ─── */
     .section-block {
-      padding: 52px 0;
+      padding: 80px 0; /* MINIMALISM PASS: 80px minimum on desktop */
       border-bottom: 1px solid var(--line);
     }
     .section-label {
@@ -227,20 +238,14 @@
       text-decoration: none;
       color: var(--white);
       border: 1px solid transparent;
-      transition: background 0.2s, border-color 0.2s;
+      transition: opacity 0.2s, transform 0.2s; /* MINIMALISM PASS: simple hover transition */
       position: relative;
       overflow: hidden;
     }
     .c-card:hover {
-      background: #1C1C1C;
-      border-color: rgba(200,255,0,0.18);
+      opacity: 0.85; /* MINIMALISM PASS: simple hover */
+      transform: translateY(-4px); /* MINIMALISM PASS: simple hover */
     }
-    .c-card:hover .c-icon-wrap {
-      background: var(--pop);
-      color: var(--bg);
-    }
-    .c-card:hover .c-arrow { opacity: 1; transform: translate(0,0); }
-
     .c-icon-wrap {
       width: 40px; height: 40px;
       border-radius: 10px;
@@ -269,17 +274,12 @@
       text-overflow: ellipsis;
     }
     .c-arrow {
-      font-size: 14px;
-      color: var(--pop);
-      opacity: 0;
-      transform: translate(-4px, 4px);
-      transition: all 0.22s ease;
-      flex-shrink: 0;
+      display: none; /* MINIMALISM PASS: remove arrow for simpler cards */
     }
 
     /* ─── CV SECTION ─── */
     .cv-band {
-      padding: 48px 0 52px;
+      padding: 80px 0; /* MINIMALISM PASS: 80px minimum on desktop */
       display: flex;
       align-items: center;
       justify-content: space-between;
@@ -290,7 +290,7 @@
     .cv-copy h2 {
       font-family: 'Syne', sans-serif;
       font-weight: 700;
-      font-size: clamp(22px, 3vw, 32px);
+      font-size: clamp(1.8rem, 5vw, 2.5rem); /* MOBILE QA */
       letter-spacing: -0.5px;
       color: var(--white);
       margin-bottom: 6px;
@@ -321,55 +321,197 @@
     .btn-cv svg { width: 15px; height: 15px; transition: transform 0.2s; }
     .btn-cv:hover svg { transform: translateY(2px); }
 
-    /* ─── MARQUEE ─── */
-    .marquee-wrap {
-      overflow: hidden;
-      border-top: 1px solid var(--line);
-      border-bottom: 1px solid var(--line);
-      padding: 14px 0;
-      background: #111;
-    }
-    .marquee-track {
-      display: flex;
-      animation: marquee 20s linear infinite;
-      width: max-content;
-    }
-    .marquee-track:hover { animation-play-state: paused; }
-    .marquee-item {
-      font-family: 'Syne', sans-serif;
-      font-size: 11px;
-      font-weight: 600;
-      letter-spacing: 3px;
-      text-transform: uppercase;
-      color: var(--muted);
-      padding: 0 36px;
-      white-space: nowrap;
-    }
-    .marquee-item .dot { color: var(--pop); margin-left: 36px; }
-    @keyframes marquee {
-      from { transform: translateX(0); }
-      to   { transform: translateX(-50%); }
-    }
 
     /* ─── FOOTER ─── */
     footer {
-      padding: 26px 0 44px;
+      padding: 40px 0; /* NAV & FOOTER CLEANUP */
       display: flex;
+      flex-direction: column;
       align-items: center;
-      justify-content: space-between;
-      flex-wrap: wrap;
+      gap: 16px;
+    }
+    .foot-copy { 
+      font-size: 13px; /* NAV & FOOTER CLEANUP */
+      color: var(--white); 
+      opacity: 0.6; 
+    }
+    .foot-socials { /* NAV & FOOTER CLEANUP */
+      display: flex;
+      gap: 20px;
+    }
+    .foot-socials a {
+      color: var(--white);
+      font-size: 18px;
+      opacity: 0.7;
+      transition: opacity 0.2s;
+    }
+    .foot-socials a:hover {
+      opacity: 1;
+    }
+
+    /* LINKEDIN POSTS SECTION */
+    .posts-section {
+      padding: 80px 0;
+      border-bottom: 1px solid var(--line);
+    }
+    .posts-header {
+      font-family: 'Syne', sans-serif;
+      font-weight: 700;
+      font-size: clamp(1.8rem, 5vw, 2.5rem); /* MOBILE QA */
+      letter-spacing: -0.5px;
+      color: var(--white);
+      margin-bottom: 32px;
+    }
+    .posts-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 16px;
+    }
+    .post-card {
+      background: #161616;
+      border-left: 1px solid var(--pop);
+      padding: 16px;
+      display: flex;
+      flex-direction: column;
       gap: 12px;
     }
-    .foot-copy { font-size: 11px; color: rgba(242,242,240,0.2); letter-spacing: 0.5px; }
-    .foot-domain { font-size: 11px; color: rgba(242,242,240,0.2); letter-spacing: 0.5px; }
+    .post-date {
+      font-size: 11px;
+      color: var(--muted);
+    }
+    .post-text {
+      font-size: 14px;
+      color: var(--white);
+      line-height: 1.6;
+      display: -webkit-box;
+      -webkit-line-clamp: 3;
+      -webkit-box-orient: vertical;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+    .post-link {
+      font-size: 12px;
+      color: var(--pop);
+      text-decoration: none;
+      font-weight: 500;
+      margin-top: auto;
+    }
+    .post-link:hover {
+      text-decoration: underline;
+    }
+
+    /* SLICE OF MY LIFE */
+    .life-section {
+      padding: 80px 0;
+      border-bottom: 1px solid var(--line);
+    }
+    .life-header {
+      font-family: 'Syne', sans-serif;
+      font-weight: 700;
+      font-size: clamp(1.8rem, 5vw, 2.5rem); /* MOBILE QA */
+      letter-spacing: -0.5px;
+      color: var(--white);
+      margin-bottom: 32px;
+      position: relative;
+    }
+    .life-header::after {
+      content: '';
+      position: absolute;
+      bottom: -8px;
+      left: 0;
+      width: 40px;
+      height: 3px;
+      background: var(--pop);
+    }
+    .life-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 20px;
+    }
+    .life-card {
+      background: #121212;
+      border-radius: 12px;
+      box-shadow: 0 4px 20px rgba(0,0,0,0.4);
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+    }
+    .life-img-wrap {
+      width: 100%;
+      aspect-ratio: 4 / 5;
+      overflow: hidden;
+    }
+    .life-img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+    }
+    .life-content {
+      padding: 20px;
+      display: flex;
+      flex-direction: column;
+      flex: 1;
+    }
+    .life-title {
+      font-size: 15px;
+      font-weight: 700;
+      color: var(--white);
+      margin-bottom: 6px;
+    }
+    .life-caption {
+      font-size: 13px;
+      color: var(--white);
+      line-height: 1.6;
+      margin-bottom: 16px;
+    }
+    .life-date {
+      font-size: 11px;
+      color: var(--muted);
+      margin-top: auto;
+      text-align: right;
+    }
 
     /* ─── RESPONSIVE ─── */
-    @media (max-width: 640px) {
-      .wrap { padding: 0 22px; }
-      .hero { grid-template-columns: 1fr; }
+    @media (max-width: 900px) {
+      .posts-grid { grid-template-columns: repeat(2, 1fr); }
+      .life-grid { grid-template-columns: repeat(2, 1fr); }
+    }
+    @media (max-width: 768px) { /* MOBILE QA */
+      .wrap { padding: 0 24px; }
+      .nav-container { padding: 20px 24px; justify-content: flex-end; }
+      .nav-toggle { display: block; }
+      .nav-links {
+        display: none; flex-direction: column; width: 100%;
+        position: absolute; top: 100%; left: 0;
+        background: rgba(12, 12, 12, 0.98); border-bottom: 1px solid var(--line);
+        padding: 24px 0; text-align: center; gap: 24px;
+      }
+      .nav-links.active { display: flex; }
+      
+      .hero { grid-template-columns: 1fr; padding: 48px 0; }
+      .section-block { padding: 48px 0; }
+      .cv-band { flex-direction: column; align-items: flex-start; padding: 48px 0; }
+      .posts-section { padding: 48px 0; }
+      .life-section { padding: 48px 0; }
+      
+      .life-grid {
+        display: flex;
+        overflow-x: auto;
+        scroll-snap-type: x mandatory;
+        gap: 16px;
+        padding-bottom: 12px;
+        -webkit-overflow-scrolling: touch;
+      }
+      .life-grid::-webkit-scrollbar { height: 6px; }
+      .life-grid::-webkit-scrollbar-thumb { background: var(--grey); border-radius: 10px; }
+      .life-card { flex: 0 0 280px; scroll-snap-align: start; }
+      
       .photo-frame { width: 140px; height: 170px; order: -1; }
-      .cv-band { flex-direction: column; align-items: flex-start; }
       .contact-grid { grid-template-columns: 1fr; }
+    }
+    @media (max-width: 480px) { /* MOBILE QA */
+      .posts-grid { grid-template-columns: 1fr; }
     }
   </style>
 </head>
@@ -378,30 +520,38 @@
 <div class="wrap">
 
   <!-- Nav -->
+  <!-- NAV & FOOTER CLEANUP -->
   <nav class="rise d1">
-    <a href="#" class="nav-logo">ZB<span>.</span></a>
-    <div class="nav-badge"><div class="pulse"></div> Open to Work</div>
+    <div class="nav-container"> <!-- MOBILE QA -->
+      <button class="nav-toggle" id="navToggle" aria-label="Toggle Menu">
+        <svg viewBox="0 0 24 24" width="24" height="24" stroke="currentColor" stroke-width="2" fill="none"><path d="M3 12h18M3 6h18M3 18h18"/></svg>
+      </button>
+      <div class="nav-links" id="navLinks">
+        <a href="#about">About</a>
+        <a href="#experience">Experience</a>
+        <a href="#what-i-think">Posts</a> <!-- LINKEDIN POSTS SECTION -->
+        <a href="#contact">Contact</a>
+      </div>
+    </div>
   </nav>
 
   <!-- Hero -->
-  <section class="hero">
+  <!-- NAV & FOOTER CLEANUP: added id="about" -->
+  <section class="hero" id="about">
     <div>
       <p class="hero-kicker rise d2">Marketing · Strategy · Brand</p>
       <h1 class="hero-name rise d3">
         ZIAD<br>BAH<span class="pop">GAT</span>
       </h1>
       <p class="hero-tagline rise d4">
-        I build brands people <strong>remember</strong> and
-        strategies that <strong>actually work</strong> —
-        fuelled by ambition, creativity, and way too much tea.
+        A results-driven professional with hands-on experience in HR operations, customer experience, and marketing. Currently at Sutherland Global — managing escalations and complex cases. Vice Head of Marketing at Enactus Damanhur. Building my personal brand at @ziadbahgatt. I work where people, strategy, and communication meet.
       </p>
       <div class="tags rise d5">
-        <span class="tag lit">Marketing</span>
-        <span class="tag">Brand Strategy</span>
-        <span class="tag">Digital</span>
-        <span class="tag">Enactus</span>
-        <span class="tag">Content</span>
-        <span class="tag">Gen Z</span>
+        <span class="tag lit">HR & RECRUITMENT</span>
+        <span class="tag">CUSTOMER EXPERIENCE</span>
+        <span class="tag">DIGITAL MARKETING</span>
+        <span class="tag">ENACTUS</span>
+        <span class="tag">PERSONAL BRAND</span>
       </div>
     </div>
     <div class="photo-frame rise d3">
@@ -413,33 +563,36 @@
 
 </div>
 
-<!-- Marquee (full-width) -->
-<div class="marquee-wrap rise d5">
-  <div class="marquee-track">
-    <span class="marquee-item">Marketing Strategy<span class="dot">✦</span></span>
-    <span class="marquee-item">Brand Building<span class="dot">✦</span></span>
-    <span class="marquee-item">Enactus Damanhur<span class="dot">✦</span></span>
-    <span class="marquee-item">Digital Marketing<span class="dot">✦</span></span>
-    <span class="marquee-item">Content Creation<span class="dot">✦</span></span>
-    <span class="marquee-item">Customer Retention<span class="dot">✦</span></span>
-    <span class="marquee-item">Marketing Strategy<span class="dot">✦</span></span>
-    <span class="marquee-item">Brand Building<span class="dot">✦</span></span>
-    <span class="marquee-item">Enactus Damanhur<span class="dot">✦</span></span>
-    <span class="marquee-item">Digital Marketing<span class="dot">✦</span></span>
-    <span class="marquee-item">Content Creation<span class="dot">✦</span></span>
-    <span class="marquee-item">Customer Retention<span class="dot">✦</span></span>
-  </div>
-</div>
+
 
 <div class="wrap">
 
+  <!-- NAV & FOOTER CLEANUP: added missing sections for nav links -->
+  <section id="experience"></section>
+  
+  <!-- LINKEDIN POSTS SECTION -->
+  <section class="posts-section rise d6" id="what-i-think">
+    <h2 class="posts-header">What I'm Thinking About</h2>
+    <div class="posts-grid" id="posts-container">
+      <!-- Cards will be injected by script.js -->
+    </div>
+  </section>
+
+  <!-- SLICE OF MY LIFE -->
+  <section class="life-section rise d6" id="slice-of-life">
+    <h2 class="life-header">Slice of My Life</h2>
+    <div class="life-grid" id="life-container">
+      <!-- Cards will be injected by script.js -->
+    </div>
+  </section>
+
   <!-- Contact -->
-  <section class="section-block rise d6">
+  <section class="section-block rise d6" id="contact">
     <p class="section-label">Get in touch</p>
     <div class="contact-grid">
 
       <!-- Phone -->
-      <a href="tel:+201030534517" class="c-card">
+      <a href="tel:+201557428020" class="c-card">
         <div class="c-icon-wrap">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
             <path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07A19.5 19.5 0 013.07 9.81 19.79 19.79 0 01.22 1.2 2 2 0 012.22 0h3a2 2 0 012 1.72c.13.96.36 1.9.7 2.81a2 2 0 01-.45 2.11L6.09 7.91a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45c.91.34 1.85.57 2.81.7A2 2 0 0122 14.92z"/>
@@ -447,7 +600,7 @@
         </div>
         <div class="c-text">
           <div class="c-type">Phone</div>
-          <div class="c-value">+20 103 053 4517</div>
+          <div class="c-value">01557428020</div>
         </div>
         <span class="c-arrow">↗</span>
       </a>
@@ -518,7 +671,7 @@
       <h2>Want the full picture?</h2>
       <p>Download my CV — everything you need, one page.</p>
     </div>
-    <a href="/assets/cv/ziad-bahgat-cv.pdf" download class="btn-cv">
+    <a href="./assets/cv/ziad-bahgat-cv.pdf" download class="btn-cv">
       Download CV
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
         <path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4M7 10l5 5 5-5M12 15V3"/>
@@ -527,12 +680,20 @@
   </div>
 
   <!-- Footer -->
+  <!-- NAV & FOOTER CLEANUP -->
   <footer class="rise d8">
-    <span class="foot-copy">© 2025 Ziad Bahgat</span>
-    <span class="foot-domain">ziadbahgat.me</span>
+    <span class="foot-copy">Ziad Bahgat © <span id="year"></span></span>
+    <div class="foot-socials">
+      <a href="https://www.linkedin.com/in/ziad-bahgat/" target="_blank"><i class="fa-brands fa-linkedin"></i></a>
+      <a href="https://www.instagram.com/ziadbahgatt" target="_blank"><i class="fa-brands fa-instagram"></i></a>
+      <a href="https://www.tiktok.com/@ziadbahgatt" target="_blank"><i class="fa-brands fa-tiktok"></i></a>
+    </div>
   </footer>
 
 </div>
+
+<!-- LINKEDIN POSTS SECTION -->
+<script src="script.js"></script>
 
 </body>
 </html>
