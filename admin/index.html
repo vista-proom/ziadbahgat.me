@@ -1,0 +1,229 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Admin Panel | Ziad Bahgat</title>
+  <link rel="stylesheet" href="admin.css">
+  <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=Outfit:wght@300;400;500&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <script type="module" src="admin.js?v=12"></script>
+</head>
+<body>
+  <div id="login-screen" class="screen">
+    <form id="login-form" class="login-box" onsubmit="return false;">
+      <h2>Admin Login</h2>
+      <div id="login-error"></div>
+      <input type="email" id="login-email" placeholder="Email Address" required />
+      <input type="password" id="login-password" placeholder="Password" required />
+      <button id="login-btn" type="submit">Sign In</button>
+    </form>
+  </div>
+
+  <div id="admin-panel" class="screen" style="display: none;">
+    <aside class="sidebar">
+      <div class="sidebar-header">
+        <h3>Admin Panel</h3>
+        <span id="user-role" class="badge"></span>
+      </div>
+      <nav class="sidebar-nav">
+        <a href="#" data-view="view-overview" class="active"><i class="fa-solid fa-house"></i> Overview</a>
+        <a href="#" data-view="view-hero"><i class="fa-solid fa-user"></i> Hero Section</a>
+        <a href="#" data-view="view-thinking"><i class="fa-solid fa-comment"></i> Thinking About</a>
+        <a href="#" data-view="view-life"><i class="fa-solid fa-folder"></i> Slice of Life</a>
+        <a href="#" data-view="view-contact"><i class="fa-solid fa-envelope"></i> Get in Touch</a>
+        <a href="#" data-view="view-cv"><i class="fa-solid fa-file"></i> CV Manager</a>
+        <a href="#" data-view="view-snaps"><i class="fa-brands fa-tiktok"></i> Snaps Manager</a>
+        <a href="#" data-view="view-team" id="nav-team" style="display: none;"><i class="fa-solid fa-users"></i> Team</a>
+      </nav>
+      <button id="logout-btn" class="sidebar-footer-btn"><i class="fa-solid fa-arrow-right-from-bracket"></i> Sign Out</button>
+    </aside>
+
+    <main class="content">
+      <div class="header-status">
+        <span id="unsaved-badge" class="badge warning" style="display:none;">Unsaved Changes</span>
+      </div>
+
+      <div id="view-overview" class="view active">
+        <div class="view-header">
+          <h2>Analytics & Traffic Overview</h2>
+          <button id="refresh-analytics-btn" class="add-btn" style="padding:6px 14px; font-size:12px;"><i class="fa-solid fa-rotate-right"></i> Refresh Stats</button>
+        </div>
+        <p style="color:var(--text-muted); font-size:13px; margin-bottom:24px;">Real-time 100% free visitor traffic, CV download metrics, and contact engagement.</p>
+        
+        <div class="analytics-grid" style="display:grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap:16px; margin-bottom:30px;">
+          <div class="stat-card" style="background:var(--panel-bg); padding:20px; border-radius:10px; border:1px solid var(--line);">
+            <div style="font-size:11px; color:var(--text-muted); text-transform:uppercase; letter-spacing:1px;">Total Page Views</div>
+            <div id="stat-page-views" style="font-size:32px; font-weight:800; color:var(--pop); margin-top:8px;">0</div>
+          </div>
+          
+          <div class="stat-card" style="background:var(--panel-bg); padding:20px; border-radius:10px; border:1px solid var(--line);">
+            <div style="font-size:11px; color:var(--text-muted); text-transform:uppercase; letter-spacing:1px;">CV Downloads</div>
+            <div id="stat-cv-downloads" style="font-size:32px; font-weight:800; color:#00FF66; margin-top:8px;">0</div>
+          </div>
+
+          <div class="stat-card" style="background:var(--panel-bg); padding:20px; border-radius:10px; border:1px solid var(--line);">
+            <div style="font-size:11px; color:var(--text-muted); text-transform:uppercase; letter-spacing:1px;">Contact Clicks</div>
+            <div id="stat-contact-clicks" style="font-size:32px; font-weight:800; color:#00E5FF; margin-top:8px;">0</div>
+          </div>
+
+          <div class="stat-card" style="background:var(--panel-bg); padding:20px; border-radius:10px; border:1px solid var(--line);">
+            <div style="font-size:11px; color:var(--text-muted); text-transform:uppercase; letter-spacing:1px;">Snaps Feed Views</div>
+            <div id="stat-snaps-views" style="font-size:32px; font-weight:800; color:#FF0055; margin-top:8px;">0</div>
+          </div>
+        </div>
+
+        <div class="upload-card">
+          <h3>Engagement Breakdown</h3>
+          <p class="help-text" style="color:var(--text-muted); font-size:12px; margin-bottom:12px;">See what links visitors are using the most to contact you.</p>
+          <table class="data-table">
+            <thead>
+              <tr>
+                <th>Channel / Link</th>
+                <th>Total Clicks</th>
+                <th>Popularity Share</th>
+              </tr>
+            </thead>
+            <tbody id="analytics-breakdown-body">
+              <tr><td colspan="3" style="text-align:center; color:var(--text-muted);">Loading analytics data...</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <div id="view-hero" class="view">
+        <div class="view-header">
+          <h2>Hero Section</h2>
+          <button class="save-btn" data-target="hero">Save Changes</button>
+        </div>
+        <div class="form-group">
+          <label>Description Paragraph</label>
+          <textarea id="hero-desc" rows="4"></textarea>
+        </div>
+        <div class="form-group">
+          <label>Profile Photo</label>
+          <img id="hero-photo-preview" src="" style="max-width:150px; display:block; margin-bottom:10px; border-radius:8px;"/>
+          <input type="file" id="hero-photo-upload" accept="image/*">
+        </div>
+      </div>
+
+      <div id="view-thinking" class="view">
+        <div class="view-header">
+          <h2>What I'm Thinking About</h2>
+          <button class="save-btn" data-target="thinking">Save All</button>
+        </div>
+        <div id="thinking-list" class="list-container"></div>
+        <button id="add-thinking-btn" class="add-btn">+ Add New Item</button>
+      </div>
+
+      <div id="view-life" class="view">
+        <div class="view-header">
+          <h2>Slice of My Life</h2>
+          <button class="save-btn" data-target="life">Save All</button>
+        </div>
+        <p class="help-text">Drag items to reorder them.</p>
+        <div id="life-list" class="list-container"></div>
+        <button id="add-life-btn" class="add-btn">+ Add New Card</button>
+      </div>
+
+      <div id="view-contact" class="view">
+        <div class="view-header">
+          <h2>Get in Touch (Contact Links)</h2>
+          <button class="save-btn" data-target="contact">Save All</button>
+        </div>
+        <div id="contact-list" class="list-container"></div>
+        <button id="add-contact-btn" class="add-btn">+ Add Custom Button</button>
+      </div>
+
+      <div id="view-cv" class="view">
+        <div class="view-header">
+          <h2>CV Manager</h2>
+        </div>
+        <div class="upload-card">
+          <h3>Upload & Activate New CV</h3>
+          <p class="help-text" style="color: var(--muted); font-size: 12px; margin-bottom: 10px;">Select a PDF file (Max 10 MB). The file will be validated, automatically renamed to match your label, set as the Active CV, and saved to Firestore.</p>
+          <input type="text" id="cv-label" placeholder="Version Label (e.g. Marketing - June 2026)">
+          <div style="margin-top:8px;">
+            <label style="font-size:12px; color:var(--muted);">Select PDF File:</label>
+            <input type="file" id="cv-file" accept="application/pdf" style="display:block; margin-top:4px;">
+          </div>
+          <div style="margin-top:8px;">
+            <label style="font-size:12px; color:var(--muted);">Or Direct URL / Relative Path:</label>
+            <input type="text" id="cv-url" placeholder="e.g. /assets/cv/ziad-bahgat-cv.pdf" style="width:100%; margin-top:4px;">
+          </div>
+          <button id="upload-cv-btn" class="add-btn" style="margin-top:14px;">Upload & Save Active CV</button>
+        </div>
+        <table class="data-table">
+          <thead>
+            <tr>
+              <th>Status</th>
+              <th>Version Label</th>
+              <th>Upload Date</th>
+              <th>Actions</th>
+            </tr>
+          </thead>
+          <tbody id="cv-list"></tbody>
+        </table>
+      </div>
+
+      <div id="view-snaps" class="view">
+        <div class="view-header">
+          <h2>Snaps Manager</h2>
+        </div>
+        <div class="upload-card">
+          <h3>Add New Snap</h3>
+          <select id="snap-platform">
+            <option value="instagram">Instagram</option>
+            <option value="tiktok">TikTok</option>
+          </select>
+          <input type="text" id="snap-url" placeholder="Post URL (Auto-generates ID)">
+          <input type="text" id="snap-id" placeholder="Generated ID" readonly>
+          <textarea id="snap-embed" placeholder="Paste Official Embed HTML code here" rows="4"></textarea>
+          <textarea id="snap-caption" placeholder="Optional Caption" rows="2"></textarea>
+          <input type="date" id="snap-date">
+          <button id="add-snap-btn" class="add-btn">Save Snap</button>
+        </div>
+        <table class="data-table">
+          <thead>
+            <tr>
+              <th>Platform</th>
+              <th>Caption Preview</th>
+              <th>Date</th>
+              <th>Actions</th>
+            </tr>
+          </thead>
+          <tbody id="snaps-list"></tbody>
+        </table>
+      </div>
+
+      <div id="view-team" class="view">
+        <div class="view-header">
+          <h2>Team Members</h2>
+        </div>
+        <div class="upload-card">
+          <h3>Invite Team Member</h3>
+          <input type="email" id="team-email" placeholder="Email Address">
+          <select id="team-role">
+            <option value="editor">Editor</option>
+            <option value="admin">Admin</option>
+          </select>
+          <input type="password" id="team-temp-pw" placeholder="Temporary Password">
+          <button id="add-team-btn" class="add-btn">Create Account</button>
+        </div>
+        <table class="data-table">
+          <thead>
+            <tr>
+              <th>Email</th>
+              <th>Role</th>
+              <th>Created At</th>
+              <th>Actions</th>
+            </tr>
+          </thead>
+          <tbody id="team-list"></tbody>
+        </table>
+      </div>
+
+    </main>
+  </div>
+</body>
+</html>

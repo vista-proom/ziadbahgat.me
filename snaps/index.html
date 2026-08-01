@@ -1,0 +1,382 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline' 'unsafe-eval' https:; style-src 'self' 'unsafe-inline' https:; font-src 'self' data: https:; img-src 'self' data: https:; connect-src 'self' https:; frame-src 'self' https:; media-src 'self' blob: data: https:; worker-src 'self' blob: https:;">
+  <meta http-equiv="X-Frame-Options" content="SAMEORIGIN">
+  <meta name="referrer" content="strict-origin-when-cross-origin">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <!-- SEO & PERFORMANCE -->
+  <title>Snaps | Ziad Bahgat</title>
+  <meta name="description" content="Short clips and moments from Ziad Bahgat's social media — Instagram and TikTok">
+  <meta name="theme-color" content="#0C0C0C">
+  <link rel="canonical" href="https://ziadbahgat.me/snaps/">
+  
+  <!-- Open Graph -->
+  <meta property="og:title" content="Snaps | Ziad Bahgat">
+  <meta property="og:description" content="Short clips and moments from Ziad Bahgat's social media — Instagram and TikTok">
+  <meta property="og:image" content="../assets/photo.jpg">
+  <meta property="og:url" content="https://ziadbahgat.me/snaps/">
+  <meta property="og:type" content="website">
+  
+  <!-- Twitter -->
+  <meta name="twitter:card" content="summary_large_image">
+  
+  <!-- Preconnects -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="preconnect" href="https://cdnjs.cloudflare.com" crossorigin>
+  <link rel="preconnect" href="https://www.google-analytics.com">
+  
+  <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=Outfit:wght@300;400;500&display=swap" rel="stylesheet">
+  <!-- NAV & FOOTER CLEANUP -->
+  <link rel="preload" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+  <noscript>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  </noscript>
+  <style>
+    @font-face {
+      font-display: swap;
+    }
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --bg:      #0C0C0C;
+      --white:   #F2F2F0;
+      --pop:     #C8FF00;
+      --grey:    #3A3A3A;
+      --muted:   #888884;
+      --line:    rgba(242,242,240,0.08);
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      background: var(--bg);
+      color: var(--white);
+      font-family: 'Outfit', sans-serif;
+      font-weight: 300;
+      min-height: 100vh;
+      overflow-x: hidden;
+      -webkit-font-smoothing: antialiased;
+      padding-top: 80px;
+    }
+
+    p { line-height: 1.7; }
+
+    /* ─── LAYOUT ─── */
+    .wrap {
+      max-width: 900px;
+      margin: 0 auto;
+      padding: 0 48px;
+    }
+
+    /* ─── ENTRANCE ─── */
+    .rise {
+      opacity: 0;
+      transform: translateY(22px);
+      animation: rise 0.75s cubic-bezier(0.16,1,0.3,1) forwards;
+    }
+    @keyframes rise { to { opacity:1; transform:translateY(0); } }
+    .d1{animation-delay:.06s} .d2{animation-delay:.16s} .d8{animation-delay:.86s}
+
+    /* ─── NAV ─── */
+    nav {
+      position: fixed;
+      top: 0; left: 0; width: 100%;
+      background: rgba(12, 12, 12, 0.92);
+      backdrop-filter: blur(8px); -webkit-backdrop-filter: blur(8px);
+      z-index: 1000; border-bottom: 1px solid var(--line);
+    }
+    .nav-container {
+      max-width: 900px; margin: 0 auto; width: 100%;
+      display: flex; align-items: center; justify-content: center;
+      padding: 24px 48px; position: relative;
+    }
+    .nav-toggle {
+      display: none; background: none; border: none; color: var(--white); cursor: pointer; padding: 4px;
+    }
+    .nav-links {
+      display: flex; gap: 32px;
+    }
+    .nav-links a {
+      color: var(--white); text-decoration: none; font-size: 13px; font-weight: 500; opacity: 0.7; transition: opacity 0.2s;
+    }
+    .nav-links a:hover { opacity: 1; }
+
+    /* ─── FOOTER ─── */
+    footer {
+      padding: 40px 0;
+      display: flex; flex-direction: column; align-items: center; gap: 16px;
+    }
+    .foot-copy { font-size: 13px; color: var(--white); opacity: 0.6; }
+    .foot-socials { display: flex; gap: 20px; }
+    .foot-socials a { color: var(--white); font-size: 18px; opacity: 0.7; transition: opacity 0.2s; }
+    .foot-socials a:hover { opacity: 1; }
+
+    /* ─── SNAPS SPECIFIC CSS ─── */
+    .snaps-feed {
+      max-width: 480px;
+      margin: 0 auto;
+      padding: 60px 20px 80px;
+      display: flex;
+      flex-direction: column;
+      gap: 40px;
+    }
+    .snap-card {
+      background: #161616;
+      border-radius: 12px;
+      border: 1px solid var(--line);
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+      box-shadow: 0 4px 20px rgba(0,0,0,0.2);
+      transition: border-color 0.5s ease, box-shadow 0.5s ease, outline 0.5s ease;
+      outline: 2px solid transparent;
+    }
+    .snap-card.highlighted {
+      border-color: var(--pop);
+      box-shadow: 0 0 24px rgba(200, 255, 0, 0.35);
+      outline: 2px solid var(--pop);
+    }
+    .snap-header {
+      padding: 16px;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      border-bottom: 1px solid var(--line);
+      font-family: 'Syne', sans-serif;
+      font-weight: 700;
+      font-size: 14px;
+      color: var(--white);
+    }
+    .snap-header i {
+      font-size: 18px;
+    }
+    .snap-embed {
+      width: 100%;
+      background: #000;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-height: 600px; /* Pre-allocate height to prevent layout shifts during lazy loading */
+    }
+    .snap-embed blockquote {
+      margin: 0 !important;
+      min-width: 100% !important;
+      width: 100% !important;
+    }
+    .snap-caption {
+      padding: 16px;
+      font-size: 14px;
+      color: var(--white);
+      line-height: 1.6;
+    }
+    .snap-footer {
+      padding: 16px;
+      border-top: 1px solid var(--line);
+      text-align: center;
+    }
+    .snap-btn {
+      display: inline-block;
+      color: var(--pop);
+      font-size: 13px;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      text-decoration: none;
+      transition: color 0.2s;
+    }
+    .snap-btn:hover {
+      text-decoration: underline;
+    }
+    .empty-state {
+      text-align: center;
+      color: var(--muted);
+      padding: 80px 20px;
+      font-size: 15px;
+    }
+
+    @media (max-width: 768px) {
+      .wrap { padding: 0 24px; }
+      .nav-container { padding: 20px 24px; justify-content: flex-end; }
+      .nav-toggle { display: block; }
+      .nav-links {
+        display: none; flex-direction: column; width: 100%;
+        position: absolute; top: 100%; left: 0;
+        background: rgba(12, 12, 12, 0.98); border-bottom: 1px solid var(--line);
+        padding: 24px 0; text-align: center; gap: 24px;
+      }
+      .nav-links.active { display: flex; }
+    }
+  </style>
+</head>
+<body>
+
+<div class="wrap">
+  <nav class="rise d1">
+    <div class="nav-container">
+      <button class="nav-toggle" id="navToggle" aria-label="Toggle Menu">
+        <svg viewBox="0 0 24 24" width="24" height="24" stroke="currentColor" stroke-width="2" fill="none"><path d="M3 12h18M3 6h18M3 18h18"/></svg>
+      </button>
+      <div class="nav-links" id="navLinks">
+        <a href="../index.html#about">About</a>
+        <a href="../index.html#experience">Experience</a>
+        <a href="../index.html#what-i-think">Posts</a>
+        <a href="./index.html" style="color: var(--pop);">Snaps</a>
+        <a href="../index.html#contact">Contact</a>
+      </div>
+    </div>
+  </nav>
+</div>
+
+<main>
+  <div class="snaps-feed rise d2" id="snaps-container">
+    <!-- Rendered by JS -->
+  </div>
+</main>
+
+<div class="wrap">
+  <footer class="rise d8">
+    <span class="foot-copy">Ziad Bahgat © <span id="year"></span></span>
+    <div class="foot-socials">
+      <a href="https://www.linkedin.com/in/ziad-bahgat/" target="_blank" aria-label="Visit my LinkedIn profile"><i class="fa-brands fa-linkedin"></i></a>
+      <a href="https://www.instagram.com/ziadbahgatt" target="_blank" aria-label="Visit my Instagram profile"><i class="fa-brands fa-instagram"></i></a>
+      <a href="https://www.tiktok.com/@ziadbahgatt" target="_blank" aria-label="Visit my TikTok profile"><i class="fa-brands fa-tiktok"></i></a>
+    </div>
+  </footer>
+</div>
+
+<script type="module">
+  import { db } from '../js/firebase-config.js';
+  import { collection, getDocs, doc, setDoc, increment, query, orderBy } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore.js";
+
+  document.getElementById('year').textContent = new Date().getFullYear();
+
+  document.getElementById('navToggle').addEventListener('click', function() {
+    document.getElementById('navLinks').classList.toggle('active');
+  });
+
+  document.addEventListener("DOMContentLoaded", async () => {
+    try {
+      await setDoc(doc(db, "analytics", "stats"), { snapsViews: increment(1) }, { merge: true });
+    } catch (e) {}
+
+    const container = document.getElementById('snaps-container');
+    container.innerHTML = '<div style="opacity:0.5; animation: pulse 1.5s infinite; text-align:center;">Loading snaps...</div>';
+    try {
+      let posts = [];
+      try {
+        const snapsQuery = query(collection(db, 'snaps'), orderBy('dateAdded', 'desc'));
+        const snapsSnap = await getDocs(snapsQuery);
+        posts = snapsSnap.docs.map(doc => ({
+          id: doc.id,
+          ...doc.data(),
+          embed_code: doc.data().embedCode || doc.data().embed_code || '',
+          date_added: doc.data().dateAdded || doc.data().date_added || ''
+        }));
+      } catch (dbErr) {
+        console.warn("Firestore snaps fetch error, falling back to snaps.json if available:", dbErr);
+      }
+      
+      if (!posts || posts.length === 0) {
+        container.innerHTML = '<div class="empty-state">No snaps yet. Check back soon.</div>';
+        return;
+      }
+      
+      let hasTikTok = false;
+      let hasInsta = false;
+      
+      container.innerHTML = posts.map(post => {
+        if (post.platform === 'tiktok') hasTikTok = true;
+        if (post.platform === 'instagram') hasInsta = true;
+        
+        const icon = post.platform === 'instagram' ? 'fa-instagram' : 'fa-tiktok';
+        const platformName = post.platform === 'instagram' ? 'Instagram' : 'TikTok';
+        
+        let embed = post.embed_code || '';
+        if (post.platform === 'instagram') {
+          if (!embed.includes('data-instgrm-theme')) {
+            embed = embed.replace(/class=["']instagram-media["']/i, '$& data-instgrm-theme="dark"');
+          }
+        } else if (post.platform === 'tiktok') {
+          if (!embed.includes('data-embed-theme')) {
+            embed = embed.replace(/class=["']tiktok-embed["']/i, '$& data-embed-theme="dark"');
+          }
+        }
+        
+        return `
+          <div class="snap-card" id="${post.id}">
+            <div class="snap-header">
+              <i class="fa-brands ${icon}"></i>
+              <span>${platformName}</span>
+            </div>
+            <div class="snap-embed">
+              ${embed}
+            </div>
+            ${post.caption ? `<div class="snap-caption">${post.caption}</div>` : ''}
+            <div class="snap-footer">
+              <a href="${post.url}" target="_blank" rel="noopener" class="snap-btn">View on ${platformName}</a>
+            </div>
+          </div>
+        `;
+      }).join('');
+      
+      if (hasInsta && window.instgrm) {
+        window.instgrm.Embeds.process();
+      } else if (hasInsta) {
+        const script = document.createElement('script');
+        script.src = "https://www.instagram.com/embed.js";
+        script.async = true;
+        document.body.appendChild(script);
+      }
+      
+      if (hasTikTok) {
+        const script = document.createElement('script');
+        script.src = "https://www.tiktok.com/embed.js";
+        script.async = true;
+        document.body.appendChild(script);
+      }
+      
+      // Scroll to specific snap if hash is present in the URL
+      if (window.location.hash) {
+        const targetElement = document.querySelector(window.location.hash);
+        if (targetElement) {
+          // Perform an initial scroll
+          setTimeout(() => {
+            targetElement.scrollIntoView({ behavior: 'smooth', block: 'center' });
+            targetElement.classList.add('highlighted');
+            
+            // Remove highlight effect after 3.5 seconds
+            setTimeout(() => {
+              targetElement.classList.remove('highlighted');
+            }, 3500);
+          }, 500);
+          
+          // Use ResizeObserver to detect when the card height changes (due to iframe load)
+          // and re-scroll to keep it perfectly centered!
+          let resizeTimeout;
+          const ro = new ResizeObserver(entries => {
+            for (let entry of entries) {
+              clearTimeout(resizeTimeout);
+              resizeTimeout = setTimeout(() => {
+                targetElement.scrollIntoView({ behavior: 'smooth', block: 'center' });
+              }, 150);
+            }
+          });
+          ro.observe(targetElement);
+          
+          // Disconnect observer after 8 seconds so the user can browse freely
+          setTimeout(() => ro.disconnect(), 8000);
+        }
+      }
+      
+    } catch (err) {
+      console.error("Failed to load snaps", err);
+      container.innerHTML = '<div class="empty-state">No snaps yet. Check back soon.</div>';
+    }
+  });
+</script>
+
+</body>
+</html>
