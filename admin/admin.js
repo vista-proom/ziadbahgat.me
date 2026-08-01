@@ -79,14 +79,14 @@ function processAndValidateFile(file, titleOrLabel, allowedCategory, maxSizeMB =
       return;
     }
 
-    // IMAGE COMPRESSION (Resizes camera photos to 800px max dimension & ~40-70 KB payload)
+    // IMAGE COMPRESSION (Resizes camera photos to max 600px & 70% JPEG quality => ~30-50 KB)
     const img = new Image();
     const url = URL.createObjectURL(file);
 
     img.onload = () => {
       URL.revokeObjectURL(url);
       const canvas = document.createElement('canvas');
-      const maxDim = 800; 
+      const maxDim = 600; 
       let width = img.width;
       let height = img.height;
 
@@ -107,7 +107,7 @@ function processAndValidateFile(file, titleOrLabel, allowedCategory, maxSizeMB =
       const ctx = canvas.getContext('2d');
       ctx.drawImage(img, 0, 0, width, height);
 
-      const compressedDataUrl = canvas.toDataURL('image/jpeg', 0.75);
+      const compressedDataUrl = canvas.toDataURL('image/jpeg', 0.70);
       resolve({ dataUrl: compressedDataUrl });
     };
 
@@ -576,14 +576,17 @@ async function saveLife() {
     let imgPath = item.querySelector('.l-img').value || '';
     const fileInput = item.querySelector('.l-file');
     
-    if (fileInput && fileInput.files && fileInput.files[0] && !imgPath.startsWith('data:')) {
-      try {
-        const processed = await processAndValidateFile(fileInput.files[0], title, 'image', 5);
-        if (processed) {
-          imgPath = processed.dataUrl;
+    if ((fileInput && fileInput.files && fileInput.files[0]) || imgPath.length > 500000) {
+      if (fileInput && fileInput.files && fileInput.files[0]) {
+        try {
+          const processed = await processAndValidateFile(fileInput.files[0], title, 'image', 10);
+          if (processed && processed.dataUrl) {
+            imgPath = processed.dataUrl;
+            item.querySelector('.l-img').value = imgPath;
+          }
+        } catch (e) {
+          console.warn("Save life image warning:", e.message);
         }
-      } catch (e) {
-        console.warn("Save life image warning:", e.message);
       }
     }
     
