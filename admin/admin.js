@@ -562,18 +562,18 @@ async function saveLife() {
   let sortOrder = 0;
 
   for (let item of items) {
-    const title = item.querySelector('.l-title').value;
-    let imgPath = item.querySelector('.l-img').value;
+    const title = item.querySelector('.l-title').value || 'Milestone';
+    let imgPath = item.querySelector('.l-img').value || '';
     const fileInput = item.querySelector('.l-file');
     
-    if (fileInput && fileInput.files[0]) {
+    if (fileInput && fileInput.files && fileInput.files[0] && !imgPath.startsWith('data:')) {
       try {
-        const processed = await processAndValidateFile(fileInput.files[0], title || 'Milestone', 'image', 5);
+        const processed = await processAndValidateFile(fileInput.files[0], title, 'image', 5);
         if (processed) {
           imgPath = processed.dataUrl;
         }
       } catch (e) {
-        throw e;
+        console.warn("Save life image warning:", e.message);
       }
     }
     
@@ -584,8 +584,8 @@ async function saveLife() {
     const sliceObj = {
       id: sliceId,
       title: title,
-      caption: item.querySelector('.l-desc').value,
-      date: item.querySelector('.l-date').value,
+      caption: item.querySelector('.l-desc').value || '',
+      date: item.querySelector('.l-date').value || '',
       imagePath: imgPath,
       imageMissing: !imgPath,
       sortOrder: sortOrder++
