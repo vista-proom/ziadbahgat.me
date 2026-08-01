@@ -56,57 +56,67 @@ const errorDiv = document.getElementById('login-error');
 const badge = document.getElementById('unsaved-badge');
 
 // --- FILE VALIDATION & RENAMING HELPER ---
-function processAndValidateFile(file, titleOrLabel, allowedCategory, maxSizeMB = 5) {
+function processAndValidateFile(file, titleOrLabel, allowedCategory, maxSizeMB = 10) {
   return new Promise((resolve, reject) => {
     if (!file) return resolve(null);
 
     const isPdf = allowedCategory === 'pdf';
-    const allowedMIMEs = isPdf 
-      ? ['application/pdf'] 
-      : ['image/jpeg', 'image/jpg', 'image/png', 'image/webp', 'image/gif'];
 
-    const isValidType = allowedMIMEs.some(type => file.type.toLowerCase().includes(type.split('/')[1])) ||
-                        (isPdf ? file.name.endsWith('.pdf') : /\.(jpg|jpeg|png|webp|gif)$/i.test(file.name));
-
-    if (!isValidType) {
-      const expectedMsg = isPdf ? "PDF documents (.pdf)" : "Image files (.webp, .jpg, .png, .gif)";
-      const errorMsg = `❌ Invalid File Format!\n\n` +
-                       `Selected File: "${file.name}" (Type: ${file.type || 'Unknown'})\n` +
-                       `Accepted Formats: ${expectedMsg}\n\n` +
-                       `How to Fix: Please convert or select a valid ${expectedMsg} file.`;
-      alert(errorMsg);
-      return reject(new Error("Invalid file format"));
+    if (isPdf) {
+      if (!file.name.endsWith('.pdf') && !file.type.toLowerCase().includes('pdf')) {
+        alert("❌ Invalid File: Selected file must be a PDF document.");
+        return reject(new Error("Invalid PDF format"));
+      }
+      const maxSizeBytes = maxSizeMB * 1024 * 1024;
+      if (file.size > maxSizeBytes) {
+        alert(`❌ File Exceeded Limit: PDF size must be under ${maxSizeMB} MB.`);
+        return reject(new Error("PDF size limit exceeded"));
+      }
+      const reader = new FileReader();
+      reader.onload = (e) => resolve({ dataUrl: e.target.result });
+      reader.onerror = () => reject(new Error("Failed to read PDF file"));
+      reader.readAsDataURL(file);
+      return;
     }
 
-    const maxSizeBytes = maxSizeMB * 1024 * 1024;
-    if (file.size > maxSizeBytes) {
-      const fileSizeMB = (file.size / (1024 * 1024)).toFixed(2);
-      const errorMsg = `❌ File Size Exceeded!\n\n` +
-                       `Selected File Size: ${fileSizeMB} MB\n` +
-                       `Maximum Allowed Limit: ${maxSizeMB} MB\n\n` +
-                       `How to Fix: Please compress or resize your ${isPdf ? 'PDF' : 'image'} before uploading.`;
-      alert(errorMsg);
-      return reject(new Error("File size limit exceeded"));
-    }
+    // IMAGE COMPRESSION (Resizes camera photos to 800px max dimension & ~40-70 KB payload)
+    const img = new Image();
+    const url = URL.createObjectURL(file);
 
-    const ext = file.name.split('.').pop().toLowerCase();
-    const cleanTitle = (titleOrLabel || 'file')
-      .trim()
-      .replace(/[^a-zA-Z0-9_-]/g, '_')
-      .replace(/_+/g, '_');
-    const renamedFileName = `${cleanTitle}.${ext}`;
+    img.onload = () => {
+      URL.revokeObjectURL(url);
+      const canvas = document.createElement('canvas');
+      const maxDim = 800; 
+      let width = img.width;
+      let height = img.height;
 
-    const reader = new FileReader();
-    reader.onload = (e) => {
-      resolve({
-        dataUrl: e.target.result,
-        renamedFileName: renamedFileName,
-        originalName: file.name,
-        sizeMB: (file.size / (1024 * 1024)).toFixed(2)
-      });
+      if (width > height) {
+        if (width > maxDim) {
+          height = Math.round((height * maxDim) / width);
+          width = maxDim;
+        }
+      } else {
+        if (height > maxDim) {
+          width = Math.round((width * maxDim) / height);
+          height = maxDim;
+        }
+      }
+
+      canvas.width = width;
+      canvas.height = height;
+      const ctx = canvas.getContext('2d');
+      ctx.drawImage(img, 0, 0, width, height);
+
+      const compressedDataUrl = canvas.toDataURL('image/jpeg', 0.75);
+      resolve({ dataUrl: compressedDataUrl });
     };
-    reader.onerror = () => reject(new Error("Failed to read file"));
-    reader.readAsDataURL(file);
+
+    img.onerror = () => {
+      URL.revokeObjectURL(url);
+      reject(new Error("Failed to load image for compression"));
+    };
+
+    img.src = url;
   });
 }
 
