@@ -1,0 +1,15 @@
+# System & OS junk
+.DS_Store
+Thumbs.db
+*.log
+
+# IDE & Editor files
+.vscode/
+.idea/
+*.swp
+
+# Environment & Temp
+node_modules/
+.env
+.env.local
+scratch/

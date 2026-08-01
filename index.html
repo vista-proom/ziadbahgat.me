@@ -2,6 +2,8 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8"/>
+  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline' 'unsafe-eval' blob: https://www.googletagmanager.com https://www.google-analytics.com https://cdnjs.cloudflare.com https://www.instagram.com https://www.tiktok.com https://cdn.jsdelivr.net https://www.gstatic.com; script-src-elem 'self' 'unsafe-inline' blob: https://www.googletagmanager.com https://www.google-analytics.com https://cdnjs.cloudflare.com https://www.instagram.com https://www.tiktok.com https://cdn.jsdelivr.net https://www.gstatic.com; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com https://cdnjs.cloudflare.com; font-src 'self' data: https://fonts.gstatic.com https://cdnjs.cloudflare.com; img-src 'self' data: https:; connect-src 'self' https://www.google-analytics.com https://firestore.googleapis.com https://firebase.googleapis.com https://identitytoolkit.googleapis.com https://securetoken.googleapis.com;">
+  <meta name="referrer" content="strict-origin-when-cross-origin">
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <!-- SEO & PERFORMANCE -->
   <title>Ziad Bahgat | Marketing Professional & Personal Brand Builder</title>
@@ -19,15 +21,27 @@
   <!-- Twitter -->
   <meta name="twitter:card" content="summary_large_image">
   
-  <!-- Preconnects -->
+  <!-- Preconnects & High Priority Connections -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link rel="preconnect" href="https://cdnjs.cloudflare.com">
+  <link rel="preconnect" href="https://cdnjs.cloudflare.com" crossorigin>
+  <link rel="preconnect" href="https://www.gstatic.com" crossorigin>
+  <link rel="preconnect" href="https://firestore.googleapis.com" crossorigin>
+  <link rel="preconnect" href="https://www.google-analytics.com">
   
-  <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=Outfit:wght@300;400;500&display=swap" rel="stylesheet">
-  <!-- NAV & FOOTER CLEANUP -->
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <link rel="preload" href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=Outfit:wght@300;400;500&display=swap" as="style" onload="this.onload=null;this.rel='stylesheet'">
+  <noscript>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=Outfit:wght@300;400;500&display=swap">
+  </noscript>
+  
+  <link rel="preload" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+  <noscript>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  </noscript>
   <style>
+    @font-face {
+      font-display: swap;
+    }
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
     :root {
@@ -186,6 +200,7 @@
       align-items: center;
       justify-content: center;
     }
+    .photo-inner picture,
     .photo-inner img {
       width: 100%;
       height: 100%;
@@ -193,18 +208,7 @@
       object-position: center top;
       display: block;
     }
-    .photo-inner::after {
-      content: 'YOUR\APHOTO';
-      white-space: pre;
-      text-align: center;
-      font-size: 10px;
-      letter-spacing: 3px;
-      text-transform: uppercase;
-      color: rgba(242,242,240,0.15);
-      line-height: 2;
-      position: absolute;
-    }
-    .photo-inner img ~ * { display: none; }
+
     /* pop-color corner accent */
     .photo-frame::before {
       display: none; /* MINIMALISM PASS: remove lime accent */
@@ -530,10 +534,16 @@
         <a href="#about">About</a>
         <a href="#experience">Experience</a>
         <a href="#what-i-think">Posts</a> <!-- LINKEDIN POSTS SECTION -->
+        <a href="./snaps/index.html">Snaps</a>
         <a href="#contact">Contact</a>
       </div>
     </div>
   </nav>
+
+</div>
+
+<main>
+<div class="wrap">
 
   <!-- Hero -->
   <!-- NAV & FOOTER CLEANUP: added id="about" -->
@@ -556,7 +566,10 @@
     </div>
     <div class="photo-frame rise d3">
       <div class="photo-inner">
-        <img src="photo.jpg" alt="Ziad Bahgat" onerror="this.style.display='none'">
+        <picture>
+          <source srcset="photo.webp" type="image/webp">
+          <img src="photo.jpg" fetchpriority="high" loading="eager" width="178" height="237" alt="Ziad Bahgat - Marketer and HR Professional">
+        </picture>
       </div>
     </div>
   </section>
@@ -671,7 +684,7 @@
       <h2>Want the full picture?</h2>
       <p>Download my CV — everything you need, one page.</p>
     </div>
-    <a href="./assets/cv/ziad-bahgat-cv.pdf" download class="btn-cv">
+    <a href="./assets/cv/ziad-bahgat-cv.pdf" download class="btn-cv" id="download-cv-btn">
       Download CV
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
         <path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4M7 10l5 5 5-5M12 15V3"/>
@@ -679,21 +692,26 @@
     </a>
   </div>
 
+</div>
+</main>
+
+<div class="wrap">
   <!-- Footer -->
   <!-- NAV & FOOTER CLEANUP -->
   <footer class="rise d8">
     <span class="foot-copy">Ziad Bahgat © <span id="year"></span></span>
     <div class="foot-socials">
-      <a href="https://www.linkedin.com/in/ziad-bahgat/" target="_blank"><i class="fa-brands fa-linkedin"></i></a>
-      <a href="https://www.instagram.com/ziadbahgatt" target="_blank"><i class="fa-brands fa-instagram"></i></a>
-      <a href="https://www.tiktok.com/@ziadbahgatt" target="_blank"><i class="fa-brands fa-tiktok"></i></a>
+      <a href="https://www.linkedin.com/in/ziad-bahgat/" target="_blank" aria-label="Visit my LinkedIn profile"><i class="fa-brands fa-linkedin"></i></a>
+      <a href="https://www.instagram.com/ziadbahgatt" target="_blank" aria-label="Visit my Instagram profile"><i class="fa-brands fa-instagram"></i></a>
+      <a href="https://www.tiktok.com/@ziadbahgatt" target="_blank" aria-label="Visit my TikTok profile"><i class="fa-brands fa-tiktok"></i></a>
     </div>
   </footer>
 
 </div>
 
-<!-- LINKEDIN POSTS SECTION -->
-<script src="script.js"></script>
+<!-- DYNAMIC SITE DATA -->
+<script type="module" src="js/site-data.js?v=9"></script>
+<script type="module" src="script.js?v=3"></script>
 
 </body>
 </html>
